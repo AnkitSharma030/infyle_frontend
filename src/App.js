@@ -6,12 +6,14 @@ import AddProduct from "./pages/addProduct/page";
 import ProtectedAdmin from "./component/ProtectedAdmin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Signup from "./pages/register/page";
+import AuthCallback from "./pages/auth/AuthCallback";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
 
         <Route
           path="/dashboard"

@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   const googleLogin = () => {
-    window.location.href = "http://localhost:5000/api/vendor/google";
+    window.location.href = "http://localhost:5000/api/vendor/auth/google";
   };
 
   return (
