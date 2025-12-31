@@ -96,6 +96,23 @@ The application uses strict route protection mechanisms to ensure data security:
 ### Error Handling
 - **404 Not Found**: A custom "Page Not Found" component handles all undefined URLs, providing a user-friendly interface and a quick link back to the login/home page.
 
+## User Interface & Experience
+The application features a modern, clean, and responsive user interface built with Tailwind CSS.
+
+### Shared Layouts
+- **AuthLayout**: A centralized layout for authentication pages (Login, Signup) providing a consistent visual theme with gradient backgrounds and centered card containers.
+- **MainLayout**: The primary layout for the internal application, featuring a responsive Sidebar and top header.
+
+### Role-Based Navigation
+The **Sidebar** component dynamically renders navigation links based on the logged-in user's role:
+- **Vendors**: Can access Dashboard and Add Product pages.
+- **Admins**: Can access the Admin Dashboard for approving/rejecting products.
+- **Logout**: Integrated directly into the sidebar for reliable access.
+
+### Responsiveness
+- **Mobile-First**: The Sidebar collapses into a hamburger menu on smaller screens, ensuring usability on mobile devices.
+- **Adaptive Tables**: Data tables in the dashboard are wrapped in scrollable containers to handle overflow gracefully on small screens.
+
 ## Folder Structure
 ```
 /
@@ -110,7 +127,8 @@ The application uses strict route protection mechanisms to ensure data security:
 │
 └── frontend/           # React Application
     ├── src/
-    │   ├── components/ # Reusable UI components
+    │   ├── component/ # Reusable UI components (Sidebar, etc.)
+    │   ├── layout/     # Shared Layouts (AuthLayout, MainLayout)
     │   ├── pages/      # Application Pages (Login, Dashboard, etc.)
     │   ├── services/   # API configuration
     │   └── App.js      # Main Routing

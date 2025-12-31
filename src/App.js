@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login/page";
 import Dashboard from "./pages/Dashboard/page";
 import ProtectedRoute from "./component/ProtectedRoute";
@@ -8,19 +8,27 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import Signup from "./pages/register/page";
 import AuthCallback from "./pages/auth/AuthCallback";
 import NotFound from "./component/PgaeNotFound";
+import AuthLayout from "./layout/AuthLayout";
+import MainLayout from "./layout/MainLayout";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* Public Routes with AuthLayout */}
+        <Route element={<AuthLayout><Navigate to="/" replace /></AuthLayout>} />
+        <Route path="/" element={<AuthLayout><Login /></AuthLayout>} />
+        <Route path="/signup" element={<AuthLayout><Signup /></AuthLayout>} />
         <Route path="/auth/callback" element={<AuthCallback />} />
 
+        {/* Protected Routes with MainLayout */}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <MainLayout>
+                <Dashboard />
+              </MainLayout>
             </ProtectedRoute>
           }
         />
@@ -29,7 +37,9 @@ function App() {
           path="/add-product"
           element={
             <ProtectedRoute>
-              <AddProduct />
+              <MainLayout>
+                <AddProduct />
+              </MainLayout>
             </ProtectedRoute>
           }
         />
@@ -37,14 +47,14 @@ function App() {
           path="/admin"
           element={
             <ProtectedAdmin>
-              <AdminDashboard />
+              <MainLayout>
+                <AdminDashboard />
+              </MainLayout>
             </ProtectedAdmin>
           }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
-
     </BrowserRouter>
   );
 }
