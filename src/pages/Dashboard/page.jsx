@@ -52,6 +52,7 @@ const Dashboard = () => {
                                     <th className="p-4">Description</th>
                                     <th className="p-4">Price</th>
                                     <th className="p-4">Category</th>
+                                    <th className="p-4">Image</th>
                                     <th className="p-4">Status</th>
                                 </tr>
                             </thead>
@@ -62,6 +63,9 @@ const Dashboard = () => {
                                         <td className="p-4 text-gray-600 truncate max-w-xs" title={p?.description}>{p?.description}</td>
                                         <td className="p-4 text-gray-900">₹{p?.price}</td>
                                         <td className="p-4 text-gray-600">{p?.category}</td>
+                                        <td className="p-4">
+                                            <img src={p?.image} alt={p?.name} className="w-16 h-16 object-cover" />
+                                        </td>
                                         <td className="p-4">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${badgeColor(
