@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Upload, X } from "lucide-react";
-// import API from "../services/api";
 import API from "../../services/api";
 
 const AddProduct = () => {

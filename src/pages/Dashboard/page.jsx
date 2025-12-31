@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-// import API from "../services/api";
 import API from "../../services/api";
-// import { useNavigate } from "react-router-dom"; // Removed unused import
 
 const Dashboard = () => {
-    // const navigate = useNavigate(); // Removed as logout is in Sidebar
     const vendor = JSON.parse(localStorage.getItem("vendor"));
     const [products, setProducts] = useState([]);
 

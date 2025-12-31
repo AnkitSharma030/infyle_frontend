@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-// import API from "../services/api";
 import API from "../../services/api";
-import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -24,7 +22,6 @@ const AdminDashboard = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
-        {/* Logout removed as it is in Sidebar */}
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
