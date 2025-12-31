@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Vendor Authentication & Product Approval Module
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This is a full-stack MERN application (MongoDB, Express.js, React.js, Node.js) designed to handle vendor authentication and product management. It features secure email/password login, Google OAuth integration, role-based access control, and a product approval workflow where vendors submit products for admin approval.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+### Frontend
+- **React.js**: Functional components, Hooks, Context API.
+- **Tailwind CSS**: Utility-first CSS framework for modern, responsive UI.
+- **Axios**: For HTTP requests.
+- **React Router DOM**: Client-side routing.
+- **Lucide React**: Icons.
 
-### `npm start`
+### Backend
+- **Node.js & Express.js**: RESTful API server.
+- **MongoDB & Mongoose**: NoSQL database and object modeling.
+- **Authentication**:
+    - **Passport.js**: Google OAuth strategy.
+    - **JWT (JSON Web Tokens)**: Secure session handling.
+    - **Bcryptjs**: Password hashing.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup Instructions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
+- Node.js (v14+)
+- MongoDB (Local or Atlas)
+- Google Cloud Console Project (for OAuth keys)
 
-### `npm test`
+### Backend Setup
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `backend` directory with the following variables:
+   ```env
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   FRONTEND_URL=http://localhost:3000
+   BACKEND_URL=http://localhost:5000
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   ```
+4. Start the server:
+   ```bash
+   npm run dev
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env.local` file in the `frontend` directory:
+   ```env
+   REACT_APP_API_URL=http://localhost:5000/api
+   ```
+4. Start the application:
+   ```bash
+   npm start
+   ```
 
-### `npm run build`
+## API Routes Explanation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Authentication (`/api/vendor`)
+- **POST /signup**: Register a new vendor with name, email, phone, and password.
+- **POST /login**: Authenticate vendor/admin and return JWT token.
+- **GET /auth/google**: Initiate Google OAuth login.
+- **GET /auth/google/callback**: Google OAuth callback URL.
+- **GET /me**: Get current authenticated user details.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Products (`/api/product`)
+- **POST /add**: Submit a new product (Vendor only). Requires `name`, `description`, `price`, `category`, and `image` (optional).
+- **GET /vendor/:vendorId**: Fetch all products submitted by a specific vendor.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Admin (`/api/admin`)
+- **GET /products/pending**: Fetch all products with status `pending`.
+- **PUT /product/:id**: Approve or Reject a product. Body: `{ "status": "approved" | "rejected" }`.
 
-### `npm run eject`
+## Security & Access Control
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Protected Routes
+The application uses strict route protection mechanisms to ensure data security:
+- **`ProtectedRoute`**: Wraps vendor-specific routes (e.g., Dashboard, Add Product). Checks for a valid JWT token in local storage. Redirects unauthorized users to the login page.
+- **`ProtectedAdmin`**: Wraps admin-specific routes (e.g., Admin Dashboard). Verifies the user's role is `admin` in addition to checking the token. Non-admin users attempting to access these routes are redirected to the home page or login.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Error Handling
+- **404 Not Found**: A custom "Page Not Found" component handles all undefined URLs, providing a user-friendly interface and a quick link back to the login/home page.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Folder Structure
+```
+/
+├── backend/            # Express.js Server
+│   ├── src/
+│   │   ├── config/     # Passport & DB config
+│   │   ├── models/     # Mongoose Schemas (Vendor, Product)
+│   │   ├── routes/     # API Routes
+│   │   ├── middlewares/# Auth & Access Control
+│   │   └── server.js   # Entry point
+│   └── package.json
+│
+└── frontend/           # React Application
+    ├── src/
+    │   ├── components/ # Reusable UI components
+    │   ├── pages/      # Application Pages (Login, Dashboard, etc.)
+    │   ├── services/   # API configuration
+    │   └── App.js      # Main Routing
+    └── package.json
+```

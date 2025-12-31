@@ -20,7 +20,7 @@ const Login = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("vendor", JSON.stringify(res.data.vendor));
 
-      // 🔑 Role based redirect
+      //Role based redirect
       if (res.data.vendor.role === "admin") {
         navigate("/admin");
       } else {

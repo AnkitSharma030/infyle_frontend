@@ -7,6 +7,7 @@ import ProtectedAdmin from "./component/ProtectedAdmin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Signup from "./pages/register/page";
 import AuthCallback from "./pages/auth/AuthCallback";
+import NotFound from "./component/PgaeNotFound";
 function App() {
   return (
     <BrowserRouter>
@@ -40,7 +41,7 @@ function App() {
             </ProtectedAdmin>
           }
         />
-
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
 

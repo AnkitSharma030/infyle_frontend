@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 // import API from "../services/api";
 import API from "../../services/api";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-    const navigate= useNavigate();
+    const navigate = useNavigate();
     const vendor = JSON.parse(localStorage.getItem("vendor"));
     const [products, setProducts] = useState([]);
 
@@ -21,7 +21,7 @@ const Dashboard = () => {
         if (status === "rejected") return "bg-red-100 text-red-700";
         return "bg-yellow-100 text-yellow-700";
     };
-    const handleLogout=()=>{
+    const handleLogout = () => {
         localStorage.clear();
         navigate("/");
     }
@@ -55,31 +55,33 @@ const Dashboard = () => {
                     Your Products
                 </h3>
 
-                {products.length === 0 ? (
+                {products?.length === 0 ? (
                     <p className="p-4 text-gray-500">No products submitted yet</p>
                 ) : (
                     <table className="w-full text-left">
                         <thead className="bg-gray-50">
                             <tr>
                                 <th className="p-3">Name</th>
+                                <th className="p-3">Description</th>
                                 <th className="p-3">Price</th>
                                 <th className="p-3">Category</th>
                                 <th className="p-3">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((p) => (
+                            {products?.map((p) => (
                                 <tr key={p._id} className="border-t">
-                                    <td className="p-3">{p.name}</td>
-                                    <td className="p-3">₹{p.price}</td>
-                                    <td className="p-3">{p.category}</td>
+                                    <td className="p-3">{p?.name}</td>
+                                    <td className="p-3">{p?.description}</td>
+                                    <td className="p-3">₹{p?.price}</td>
+                                    <td className="p-3">{p?.category}</td>
                                     <td className="p-3">
                                         <span
                                             className={`px-3 py-1 rounded-full text-sm ${badgeColor(
-                                                p.status
+                                                p?.status
                                             )}`}
                                         >
-                                            {p.status}
+                                            {p?.status}
                                         </span>
                                     </td>
                                 </tr>
