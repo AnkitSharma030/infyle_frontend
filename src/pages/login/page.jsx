@@ -33,9 +33,11 @@ const Login = () => {
     }
   };
 
+  console.log("url",process.env.REACT_APP_API_URL);
+  
   const googleLogin = () => {
-    window.location.href = "http://localhost:5000/api/vendor/auth/google";
-  };
+  window.location.href = `${process.env.REACT_APP_API_URL}/vendor/auth/google`;
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-100">
