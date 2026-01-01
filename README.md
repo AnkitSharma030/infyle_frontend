@@ -98,6 +98,9 @@ The application uses strict route protection mechanisms to ensure data security:
 - **`ProtectedRoute`**: Wraps vendor-specific routes (e.g., Dashboard, Add Product). Checks for a valid JWT token in local storage. Redirects unauthorized users to the login page.
 - **`ProtectedAdmin`**: Wraps admin-specific routes (e.g., Admin Dashboard). Verifies the user's role is `admin` in addition to checking the token. Non-admin users attempting to access these routes are redirected to the home page or login.
 
+### Admin Credits
+- **` Email`**: admin@gmail.com
+- **` Pass ` **: admin
 ### Error Handling
 - **404 Not Found**: A custom "Page Not Found" component handles all undefined URLs, providing a user-friendly interface and a quick link back to the login/home page.
 
@@ -111,7 +114,7 @@ The application features a modern, clean, and responsive user interface built wi
 ### Role-Based Navigation
 The **Sidebar** component dynamically renders navigation links based on the logged-in user's role:
 - **Vendors**: Can access Dashboard and Add Product pages.
-- **Admins**: Can access the Admin Dashboard for approving/rejecting products.
+- **Admins**: Can access the Admin Dashboard for approving/rejecting products. 
 - **Logout**: Integrated directly into the sidebar for reliable access.
 
 ### Responsiveness
@@ -123,6 +126,9 @@ The **Sidebar** component dynamically renders navigation links based on the logg
 - **Base64 Encoding**: Images are converted to base64 in the frontend for secure transmission.
 - **Cloudinary Storage**: Backend automatically uploads images to Cloudinary and stores the returned URL in the database.
 - **Image Preview**: Real-time preview of selected images with the ability to remove and re-select.
+
+### Server Startting time
+as the backednd is rendered on render free CPU so it shuts down after 15 minutes of inactivity therefore, taking sone time restart on initial login.
 
 ## Folder Structure
 ```
